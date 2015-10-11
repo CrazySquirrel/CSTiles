@@ -27,17 +27,22 @@ You can look at other plugins and utilities for web development on the website [
 				  While not being used
 * tiles - The array with parameters for each tile.
 		  As keys used tile id, and the value is an object with parameters.
-	* id	
-	* order
-	* size	
-	* adaptivSize
-	* adaptivOrder
-	* autoClone
-	* autoMove
-	* animate
-	* shareTile	
-	* shareTypes
-	* imagePosition	
+	* id - A unique number identifies this tile.	
+	* order - The number determines the order of tile or approximate order if you enable autoperimeter.
+	* size - Number or array of numbers defining how many cells will be occupied by the corresponding tile.
+	* adaptivSize - Array with adaptive tile size by analogy with adaptivGridSize.
+	* adaptivOrder - Array with adaptive paradime sort. Used if different permissions need to change the tile in some places.
+	* autoClone - Flag for excluding tile from autoperimeter.
+	* autoMove - Flag for excluding tile from cloning.
+	* animate - Object with the animation settings. To override for a specific tile.
+	* shareTile - Flag to override the share options.
+	* shareTypes - Array types share.
+	* imagePosition	- The object or number to preobragenia image position in a particular tile.
+
+### Setting
+The options for tiles and a particular tile can be specified when invoking the plugin or via data - attributes.
+When you call peredaetsa structured object as the default parameters.
+If you specify options via data, you can use the following values.
 ### Default parameters
 ```javascript
 gridSize: [4,"auto"],
