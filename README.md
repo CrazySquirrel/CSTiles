@@ -96,38 +96,52 @@ imagePosition: ["center","center"]
 ## Example
 ### HTML
 ```html
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSTiles</title>
+<link rel="stylesheet" data-template-style="true" type="text/css" href="css/CSTiles.css">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery.CSTiles-1.0.0.min.js"></script>
+<script src="js/index.js"></script>
+</head>
+
+<body>
 <div class="tiles" data-tiles-grid-size="4,auto">
-	<a class="tiles__item" data-tile-size="2" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="2" href="#" rel="prefetch" title=" ">
+        <img src="images/1.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="1" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
+        <img src="images/2.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="1,2" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="1,2" href="#" rel="prefetch" title=" ">
+        <img src="images/3.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="1" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
+         <img src="images/4.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="2,1" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="2,1" href="#" rel="prefetch" title=" ">
+        <img src="images/5.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="1" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
+         <img src="images/6.jpg" alt=" ">
     </a>
     <a class="tiles__item" data-tile-size="1" href="hhttp://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+        <img src="images/7.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="2,1" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="2,1" href="#" rel="prefetch" title=" ">
+         <img src="images/8.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="1" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
+        <img src="images/9.jpg" alt=" ">
     </a>
-    <a class="tiles__item" data-tile-size="1" href="http://crazysquirrel.ru/" rel="prefetch" title=" ">
-    	<img src="http://ru.crazysquirrel.ru/bitrix/templates/crazysquirrel/images/logotype-share.png" alt=" ">
+    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
+      <img src="images/10.jpg" alt=" ">
     </a>
 </div>
+</body>
+</html>
 ```
 ### JavaScript
 ```javascript
