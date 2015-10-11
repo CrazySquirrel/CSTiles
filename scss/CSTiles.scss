@@ -3,12 +3,12 @@
 $media-retina: "only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx)";
 
 @mixin retinabg($url, $url2x, $size, $position, $repeat) {
-    background-image: image-url($url);
+    background-image: url($url);
     background-repeat: $repeat;
     background-position: $position;
     background-size: $size;
     @media #{$media-retina} {
-        background-image: image-url($url2x);
+        background-image: url($url2x);
         background-size: $size;
     }
 }
@@ -20,7 +20,7 @@ $media-retina: "only screen and (-webkit-min-device-pixel-ratio: 2), only screen
 		width:100%;
 		height:0;
 		display:block;
-		clear:both;	
+		clear:both;	 
 	}
 	
 	.tiles__item{
@@ -62,7 +62,7 @@ $media-retina: "only screen and (-webkit-min-device-pixel-ratio: 2), only screen
 			width:20px;
 			
 			.tiles__item-share-item{
-				@include retinabg("social.png", "social@2x.png", 944px 20px, left center, no-repeat);
+				@include retinabg("../images/social.png", "../images/social@2x.png", 944px 20px, left center, no-repeat);
 				width:20px;
 				height:20px;
 				float:left;
