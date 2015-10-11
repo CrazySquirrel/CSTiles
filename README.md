@@ -43,6 +43,29 @@ You can look at other plugins and utilities for web development on the website [
 The options for tiles and a particular tile can be specified when invoking the plugin or via data - attributes.
 When you call peredaetsa structured object as the default parameters.
 If you specify options via data, you can use the following values.
+* For tiles
+	* data-tiles-grid-size - Sets gridSize
+	* data-tiles-grid-size-... - Sets adaptivGridSize where ... replaced by name
+	* data-tiles-media-... - Sets adaptivMedia where ... replaced by name
+	* data-tiles-move - Sets autoMove
+	* data-tiles-clone - Sets autoClone
+	* data-tiles-animate-... - Sets animate where ... replaced by name
+	* data-tiles-share - Sets shareTile
+	* data-tiles-share-types - Sets shareTypes where value separet by ,
+	* data-tiles-image-position - Sets imagePosition where value separet by ,
+* For tile
+	* data-tile-size - Sets size
+	* data-tile-size-... - Sets adaptivSize where ... replaced by name
+	* data-tile-order - Sets order
+	* data-tile-order-... - Sets adaptivOrder where ... replaced by name
+	* data-tile-move - Sets autoMove
+	* data-tile-clone - Sets autoClone
+	* data-tile-id - Sets id
+	* data-tile-animate-... - Sets animate where ... replaced by name
+	* data-tile-share - Sets shareTile
+	* data-tile-share-types - Sets shareTypes where value separet by ,
+	* data-tile-image-position - Sets imagePosition where value separet by ,
+
 ### Default parameters
 ```javascript
 gridSize: [4,"auto"],
