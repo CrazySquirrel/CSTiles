@@ -44,8 +44,8 @@ The options for tiles and a particular tile can be specified when invoking the p
 When you call peredaetsa structured object as the default parameters.
 If you specify options via data, you can use the following values.
 * For tiles
-	* data-tiles-grid-size - Sets gridSize
-	* data-tiles-grid-size-... - Sets adaptivGridSize where ... replaced by name
+	* data-tiles-grid-size - Sets gridSize value separet by ,
+	* data-tiles-grid-size-... - Sets adaptivGridSize where ... replaced by name and value separet by ,
 	* data-tiles-media-... - Sets adaptivMedia where ... replaced by name
 	* data-tiles-move - Sets autoMove
 	* data-tiles-clone - Sets autoClone
@@ -54,8 +54,8 @@ If you specify options via data, you can use the following values.
 	* data-tiles-share-types - Sets shareTypes where value separet by ,
 	* data-tiles-image-position - Sets imagePosition where value separet by ,
 * For tile
-	* data-tile-size - Sets size
-	* data-tile-size-... - Sets adaptivSize where ... replaced by name
+	* data-tile-size - Sets size value separet by ,
+	* data-tile-size-... - Sets adaptivSize where ... replaced by name and value separet by ,
 	* data-tile-order - Sets order
 	* data-tile-order-... - Sets adaptivOrder where ... replaced by name
 	* data-tile-move - Sets autoMove
