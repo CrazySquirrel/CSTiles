@@ -358,6 +358,11 @@
 			}
 		};
 		
+		/**
+		 * Detect is the grid has free place
+		 * @param  {array}  grid [grid]
+		 * @return {Boolean} result [has or not]
+		 */
 		base.isGridHasPlace = function(grid){
 			var x,y,z;
 			z = false;
@@ -375,6 +380,11 @@
 			return z;
 		};
 		
+		/**
+		 * Cal padding value
+		 * @param  {array} padding [array with padding values]
+		 * @return {string} result [css padding]
+		 */
 		base.preparePadding = function(padding){
 			padding[0] = padding[0].toFixed(2)*1+0.01;
 			padding[1] = padding[1].toFixed(2)*1+0.01;
@@ -388,6 +398,11 @@
 			return padding;
 		};
 		
+		/**
+		 * Cal margin value
+		 * @param  {array} margin [array with margin values]
+		 * @return {string} result [css margin]
+		 */
 		base.prepareMargin = function(margin){
 			if(margin[0] === margin[1]){
 				margin = margin[0]+"% 0 0 "+margin[0]+"%";	
@@ -398,6 +413,15 @@
 			return margin;
 		};
 		
+		/**
+		 * Create tile code
+		 * @param  {jQuery object} e [tile jquery object]
+		 * @param  {object} setting [object with tile settings]
+		 * @param  {array} grid [grid array]
+		 * @param  {boolian} gridscale [grid scale flag]
+		 * @param  {array} gridSize  [array with grid size]
+		 * @return {object} result [result object]
+		 */
 		base.makeTile = function(e,setting,grid,gridscale,gridSize){
 			var j,x,image,size,padding,height,finder,margin;
 			e.html("<div class='cstiles__item-content-wrap' style='padding:"+setting.margin+"px;'><div class='cstiles__item-content'>"+e.html()+"</div></div>");
