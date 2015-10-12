@@ -24,6 +24,7 @@ You can look at other plugins and utilities for web development on the website [
 * imagePosition - An array of two or one element, Ivo a string that specifies the position of the image.
 				  May include the values ["left|center|right","top|center|bottom"].		  
 				  While not being used
+* imageSrc - Src to tile bg image.
 * tiles - The array with parameters for each tile.
 		  As keys used tile id, and the value is an object with parameters.
 	* id - A unique number identifies this tile.	
@@ -38,6 +39,7 @@ You can look at other plugins and utilities for web development on the website [
 	* shareTile - Flag to override the share options.
 	* shareTypes - Array types share.
 	* imagePosition	- The object or number to preobragenia image position in a particular tile.
+	* imageSrc - Src to tile bg image.
 
 ### Setting
 The options for tiles and a particular tile can be specified when invoking the plugin or via data - attributes.
@@ -53,6 +55,7 @@ If you specify options via data, you can use the following values.
 	* data-cstiles-share - Sets shareTile
 	* data-cstiles-share_types - Sets shareTypes where value separet by ,
 	* data-cstiles-image_position - Sets imagePosition where value separet by ,
+	* data-cstiles-image_src - Sets imageSrc
 * For tile
 	* data-cstiles-size - Sets size value separet by ,
 	* data-cstiles-size-... - Sets adaptivSize where ... replaced by name and value separet by ,
@@ -65,6 +68,7 @@ If you specify options via data, you can use the following values.
 	* data-cstiles-share - Sets shareTile
 	* data-cstiles-share_types - Sets shareTypes where value separet by ,
 	* data-cstiles-image_position - Sets imagePosition where value separet by ,
+	* data-cstiles-image_src - Sets imageSrc
 
 ### Default parameters
 ```javascript
