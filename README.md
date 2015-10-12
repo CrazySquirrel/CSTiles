@@ -4,7 +4,7 @@ This plugin allows you to create multipurpose tiles.
 You can look at other plugins and utilities for web development on the website [CrazySquirrel.ru](http://crazysquirrel.ru/).
 ## Parameters
 ### Parameters description
-* gridSize - This parameter determines the size of the default grid.
+* size - This parameter determines the size of the default grid.
 			 Can be an array, a number or "auto".
 			 The array sizes may also consist of one or two numbers or one or two words "auto".
 			 The value "auto" will be automatically replaced by a number such that one grid cell was not less than 200 pixels.
@@ -12,13 +12,12 @@ You can look at other plugins and utilities for web development on the website [
 * autoMove - The flag determines whether you are allowed to rearrange the tile to fill the spaces.
 * autoClone - The flag determines whether to allow to clone tile to fill the spaces.
 * animate - Object flags define the animation.
-	* zoom - The flag allows or prohibits the animation of images when hovered.
-	* share - The flag allows or prohibits the animation shered block when when hovered.
-* adaptivGridSize - Object with mesh sizes under adaptive resolution.
+* margin - Margin between tiles.
+* adaptivSize - Object with mesh sizes under adaptive resolution.
 					As keys uses the names adaptive resolution, and the values in type are a gridSize.
 * adaptivMedia - The object with adaptive media queries.
 				 As keys are adaptive permissions.
-* shareTile - The flag determines whether to allow share of tiles.
+* shareTile - The flag determines whether to allow share of tiles. [Requered CSShare].
 * shareTypes - An array with the names of views share.
 			   May include the following values.
 			   ["facebook","twitter","vkontakte","odnoklassniki","google","yahoo","misterwong","moimir","friendfeed","yandex","webmoney","vkrugu","juick","pinterest","myspace","googlebookmark","stumbleupon","instapaper","email","springpad","print","linkedin","readability","pinme","surfingbird","webdiscover","memori","livejournal","blogger","liveinternet","evernote","bobrdobr","moemesto","formspring","yazakladki","moikrug","bookmark","digg","tumblr","delicious"]
@@ -35,6 +34,7 @@ You can look at other plugins and utilities for web development on the website [
 	* autoClone - Flag for excluding tile from autoperimeter.
 	* autoMove - Flag for excluding tile from cloning.
 	* animate - Object with the animation settings. To override for a specific tile.
+	* margin - Margin between tiles.
 	* shareTile - Flag to override the share options.
 	* shareTypes - Array types share.
 	* imagePosition	- The object or number to preobragenia image position in a particular tile.
@@ -44,38 +44,37 @@ The options for tiles and a particular tile can be specified when invoking the p
 When you call peredaetsa structured object as the default parameters.
 If you specify options via data, you can use the following values.
 * For tiles
-	* data-tiles-grid-size - Sets gridSize value separet by ,
-	* data-tiles-grid-size-... - Sets adaptivGridSize where ... replaced by name and value separet by ,
-	* data-tiles-media-... - Sets adaptivMedia where ... replaced by name
-	* data-tiles-move - Sets autoMove
-	* data-tiles-clone - Sets autoClone
-	* data-tiles-animate-... - Sets animate where ... replaced by name
-	* data-tiles-share - Sets shareTile
-	* data-tiles-share-types - Sets shareTypes where value separet by ,
-	* data-tiles-image-position - Sets imagePosition where value separet by ,
+	* data-cstiles-size - Sets gridSize value separet by ,
+	* data-cstiles-size-... - Sets adaptivGridSize where ... replaced by name and value separet by ,
+	* data-cstiles-media-... - Sets adaptivMedia where ... replaced by name
+	* data-cstiles-move - Sets autoMove
+	* data-cstiles-clone - Sets autoClone
+	* data-cstiles-animate-... - Sets animate where ... replaced by name
+	* data-cstiles-share - Sets shareTile
+	* data-cstiles-share_types - Sets shareTypes where value separet by ,
+	* data-cstiles-image_position - Sets imagePosition where value separet by ,
 * For tile
-	* data-tile-size - Sets size value separet by ,
-	* data-tile-size-... - Sets adaptivSize where ... replaced by name and value separet by ,
-	* data-tile-order - Sets order
-	* data-tile-order-... - Sets adaptivOrder where ... replaced by name
-	* data-tile-move - Sets autoMove
-	* data-tile-clone - Sets autoClone
-	* data-tile-id - Sets id
-	* data-tile-animate-... - Sets animate where ... replaced by name
-	* data-tile-share - Sets shareTile
-	* data-tile-share-types - Sets shareTypes where value separet by ,
-	* data-tile-image-position - Sets imagePosition where value separet by ,
+	* data-cstiles-size - Sets size value separet by ,
+	* data-cstiles-size-... - Sets adaptivSize where ... replaced by name and value separet by ,
+	* data-cstiles-order - Sets order
+	* data-cstiles-order-... - Sets adaptivOrder where ... replaced by name
+	* data-cstiles-move - Sets autoMove
+	* data-cstiles-clone - Sets autoClone
+	* data-cstiles-id - Sets id
+	* data-cstiles-animate-... - Sets animate where ... replaced by name
+	* data-cstiles-share - Sets shareTile
+	* data-cstiles-share_types - Sets shareTypes where value separet by ,
+	* data-cstiles-image_position - Sets imagePosition where value separet by ,
 
 ### Default parameters
 ```javascript
-gridSize: [4,"auto"],
+size: [4,"auto"],
 autoMove: true,
 autoClone: true,
+margin: 0,
 animate: {
-	"zoom":true,
-	"share":true
 },
-adaptivGridSize: {
+adaptivSize: {
 	"big-desktop": [6,"auto"],
 	"desktop": [4,"auto"],
 	"tablet": [3,"auto"],
@@ -97,55 +96,57 @@ imagePosition: ["center","center"]
 ### HTML
 ```html
 <!doctype html>
+<!doctype html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>CSTiles</title>
-<link rel="stylesheet" data-template-style="true" type="text/css" href="css/CSTiles.css">
-<script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/jquery.CSTiles-1.0.0.min.js"></script>
-<script src="js/index.js"></script>
+<link rel="stylesheet" data-template-style="true" type="text/css" href="css/CSTiles-1.1.0.css">
 </head>
 
 <body>
-<div class="tiles" data-tiles-grid-size="4,auto">
-    <a class="tiles__item" data-tile-size="2" href="#" rel="prefetch" title=" ">
-        <img src="images/1.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
-        <img src="images/2.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="1,2" href="#" rel="prefetch" title=" ">
-        <img src="images/3.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
-         <img src="images/4.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="2,1" href="#" rel="prefetch" title=" ">
-        <img src="images/5.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
-         <img src="images/6.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="1" href="hhttp://crazysquirrel.ru/" rel="prefetch" title=" ">
-        <img src="images/7.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="2,1" href="#" rel="prefetch" title=" ">
-         <img src="images/8.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
-        <img src="images/9.jpg" alt=" ">
-    </a>
-    <a class="tiles__item" data-tile-size="1" href="#" rel="prefetch" title=" ">
-      <img src="images/10.jpg" alt=" ">
-    </a>
+<div class="cstiles" data-cstiles-size="4,auto" data-cstiles-margin="5">
+    <div class="cstiles__item" data-cstiles-size="2">
+        <iframe class="cstiles__item-video" width="500" height="500" src="https://www.youtube.com/embed/w1I-HWAP6N8?controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="cstiles__item" data-cstiles-size="1" data-cstiles-image_src="images/2.jpg">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="1,2">
+        <img class="cstiles__item-image" src="images/3.jpg" alt=" ">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="1" data-cstiles-order="1" data-cstiles-order-tablet="1">
+         <img class="cstiles__item-image" src="images/4.jpg" alt=" ">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="2,1" data-cstiles-order="2" data-cstiles-order-tablet="2" data-cstiles-image_position="left,bottom">
+        <img class="cstiles__item-image" src="images/5.jpg" alt=" ">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="1">
+         <img class="cstiles__item-image" src="images/6.jpg" alt=" ">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="1">
+        <img class="cstiles__item-image" src="images/7.jpg" alt=" ">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="2,1">
+         <img class="cstiles__item-image" src="images/8.jpg" alt=" ">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="1">
+        <img class="cstiles__item-image" src="images/9.jpg" alt=" ">
+    </div>
+    <div class="cstiles__item" data-cstiles-size="1">
+      <img class="cstiles__item-image" src="images/10.jpg" alt=" ">
+    </div>
 </div>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery.CSTiles-1.1.0.min.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
 ```
 ### JavaScript
 ```javascript
 $(function(){
-	$(".tiles").CSTiles();
+    $(".cstiles").CSTiles({
+		shareTile: false	
+	});
 });
 ```

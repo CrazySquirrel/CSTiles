@@ -1,3 +1,5 @@
 $(function(){
-    $(".tiles").CSTiles();
+    $(".cstiles").CSTiles({
+		shareTile: false	
+	});
 });
