@@ -2,6 +2,28 @@
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
+const CompressionPlugin = require("compression-webpack-plugin");
+
+const StringReplacePlugin = require("string-replace-webpack-plugin");
+
+const WebpackNotifierPlugin = require('webpack-notifier');
+
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+const path = require('path');
+
+const webpack = require('webpack');
+
+const fs = require("fs");
+
+const crypto = require('crypto');
+
+const compress = require('compression');
+
 let arrPlugins = [
     new WebpackNotifierPlugin(),
     new StringReplacePlugin()
@@ -12,7 +34,7 @@ if (NODE_ENV == "development" || NODE_ENV == "production") {
             host: "localhost",
             port: 8080,
             server: {
-                baseDir: ['./'],
+                baseDir: ['./dist/'],
                 middleware: function (req, res, next) {
                     var gzip = compress();
                     gzip(req, res, next);
@@ -60,10 +82,10 @@ arrPlugins.push(
 
 module.exports = {
     entry: {
-        "./dist/js/index": "./src/ts/index.ts"
+        "CSTiles": "./src/ts/CSTiles.ts"
     },
     output: {
-        filename: "[name].js"
+        filename: "./dist/js/[name].js"
     },
     devtool: (NODE_ENV == "development" ? 'inline-source-map' : (NODE_ENV == "testing" ? 'inline-source-map' : '')),
     plugins: arrPlugins,
@@ -80,7 +102,14 @@ module.exports = {
                 loaders: [
                     "es3ify",
                     StringReplacePlugin.replace({
-                        replacements: []
+                        replacements: [
+                            {
+                                pattern: /#HASH#/gi,
+                                replacement: function (string, pattern1) {
+                                    return crypto.createHash('md5').update((new Date()).getTime().toString()).digest('hex');
+                                }
+                            }
+                        ]
                     }),
                     'babel-loader?presets[]=babel-preset-es2015-loose',
                     'ts-loader'
