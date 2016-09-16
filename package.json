@@ -1,6 +1,6 @@
 {
   "name": "CSTiles",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "JavaScript tiles plugin",
   "main": "dist/js/index.js",
   "scripts": {
