@@ -1,0 +1,11 @@
+.idea
+.sass-cache
+doc
+dist/js
+node_modules
+src/js
+*.log
+*.xml
+*.DS_Store
+*.map
+*.log
