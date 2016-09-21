@@ -212,7 +212,13 @@ new CSTiles(<domParentNode>,<objGridParams>,<arrTiles>);
             "phone": 2,
             "small": 1
 ```
+
+## Help us
+    
+[![Help us](http://crazysquirrel.ru/bitrix/templates/crazysquirrel/images/yandex.money.png)](https://money.yandex.ru/quickpay/shop-widget?account=41001951616035&quickpay=shop&payment-type-choice=on&mobile-payment-type-choice=on&writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0+%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0+CrazySquirrel&default-sum=50&button-text=03&successURL=http%3A%2F%2Fcrazysquirrel.ru%2Fsupport%2F%3Faction%3Dsuccess "Help us")
+    
 ## Example
+
 ```javascript
 new CSTiles(
         document.body,
@@ -396,3 +402,7 @@ new CSTiles(
         ]
 );
 ```
+
+## Sponsors
+    
+[![BrowserStack](http://crazysquirrel.ru/bitrix/templates/crazysquirrel/images/browserstack.png)](https://www.browserstack.com/)

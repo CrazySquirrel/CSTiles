@@ -1,33 +1,9 @@
 "use strict";
 /**
- * Grid params interface
- */
-interface GridParamsInterface {
-    gridID:string;
-    gridSize:number;
-    tileMargin:number;
-    tilePadding:number;
-    tileContent:Object;
-    adaptiveMedia:Object;
-    gridAdaptiveSize:Object;
-    tileAdaptiveMargin:Object;
-    tileAdaptivePadding:Object;
-}
-/**
  * Grid params class
  */
-class GridParamsClass implements GridParamsInterface {
-    gridID:string;
-    gridSize:number;
-    tileMargin:number;
-    tilePadding:number;
-    tileContent:Object;
-    adaptiveMedia:Object;
-    gridAdaptiveSize:Object;
-    tileAdaptiveMargin:Object;
-    tileAdaptivePadding:Object;
-
-    constructor() {
+var GridParamsClass = (function () {
+    function GridParamsClass() {
         this.gridID = "";
         this.gridSize = 8;
         this.tileMargin = 8;
@@ -62,41 +38,13 @@ class GridParamsClass implements GridParamsInterface {
         this.tileAdaptiveMargin = {};
         this.tileAdaptivePadding = {};
     }
-}
-/**
- * Tile params interface
- */
-interface TileParamsInterface {
-    tileSize:Array<number>;
-    tilePosition:Array<number>;
-    tileMargin:number;
-    tilePadding:number;
-    tileContent:Object;
-    tileWrapID:string;
-    tileContentID:string;
-    tileAdaptiveSize:Object;
-    tileAdaptivePosition:Object;
-    tileAdaptiveMargin:Object;
-    tileAdaptivePadding:Object;
-}
+    return GridParamsClass;
+}());
 /**
  * Tile params class
  */
-class TileParamsClass implements TileParamsInterface {
-    tileID:string;
-    tileSize:Array<number>;
-    tilePosition:Array<number>;
-    tileMargin:number;
-    tilePadding:number;
-    tileContent:Object;
-    tileWrapID:string;
-    tileContentID:string;
-    tileAdaptiveSize:Object;
-    tileAdaptivePosition:Object;
-    tileAdaptiveMargin:Object;
-    tileAdaptivePadding:Object;
-
-    constructor() {
+var TileParamsClass = (function () {
+    function TileParamsClass() {
         this.tileID = "";
         this.tileSize = [2, 2];
         this.tilePosition = [];
@@ -123,36 +71,35 @@ class TileParamsClass implements TileParamsInterface {
         this.tileAdaptiveMargin = {};
         this.tileAdaptivePadding = {};
     }
-}
+    return TileParamsClass;
+}());
 /**
  * CSTiles class
  */
-export default class CSTiles {
+var CSTiles = (function () {
     /**
      * CSTiles tile constructor
      * @param domParentNode
      * @param objGridParams
      * @param arrTiles
      */
-    constructor(domParentNode?:HTMLElement,
-                objGridParams?:GridParamsClass,
-                arrTiles?:Array<TileParamsClass>) {
+    function CSTiles(domParentNode, objGridParams, arrTiles) {
         /**
          * Assign default params
          */
         objGridParams = this.assignDefaultGridParams(objGridParams);
-        let {_arrTiles, grid, adaptiveGrid} = this.assignDefaultTileParams(objGridParams, arrTiles);
+        var _a = this.assignDefaultTileParams(objGridParams, arrTiles), _arrTiles = _a._arrTiles, grid = _a.grid, adaptiveGrid = _a.adaptiveGrid;
         arrTiles = _arrTiles;
         /**
          * Parameter validation errors
          */
         if (!this.checkInnerParamsForErrors(domParentNode, objGridParams, arrTiles)) {
-            let arrCss = {};
+            var arrCss = {};
             arrCss[""] = {};
             /**
              * Create grid DOM
              */
-            let domGrid = document.createElement("div");
+            var domGrid = document.createElement("div");
             domGrid.id = objGridParams.gridID;
             /**
              * Write grid styles
@@ -165,27 +112,28 @@ export default class CSTiles {
             /**
              * Loop tiles
              */
-            for (let objTile of arrTiles) {
+            for (var _i = 0, arrTiles_1 = arrTiles; _i < arrTiles_1.length; _i++) {
+                var objTile = arrTiles_1[_i];
                 /**
                  * Create tile DOM
                  */
-                let domTile = document.createElement("div");
+                var domTile = document.createElement("div");
                 domTile.id = objTile.tileID;
                 domGrid.appendChild(domTile);
                 /**
                  * Write tile styles
                  */
                 arrCss[""][objTile.tileID] = {};
-                arrCss[""][objTile.tileID]["width"] = `0`;
-                arrCss[""][objTile.tileID]["height"] = `0`;
-                arrCss[""][objTile.tileID]["display"] = `block`;
-                arrCss[""][objTile.tileID]["position"] = `absolute`;
-                arrCss[""][objTile.tileID]["padding"] = `${objTile.tileSize[0] / objGridParams.gridSize * 50}% ${objTile.tileSize[1] / objGridParams.gridSize * 50}%`;
-                arrCss[""][objTile.tileID]["margin"] = `${objTile.tilePosition[1] / objGridParams.gridSize * 100}% 0 0 ${objTile.tilePosition[0] / objGridParams.gridSize * 100}%`;
+                arrCss[""][objTile.tileID]["width"] = "0";
+                arrCss[""][objTile.tileID]["height"] = "0";
+                arrCss[""][objTile.tileID]["display"] = "block";
+                arrCss[""][objTile.tileID]["position"] = "absolute";
+                arrCss[""][objTile.tileID]["padding"] = objTile.tileSize[0] / objGridParams.gridSize * 50 + "% " + objTile.tileSize[1] / objGridParams.gridSize * 50 + "%";
+                arrCss[""][objTile.tileID]["margin"] = objTile.tilePosition[1] / objGridParams.gridSize * 100 + "% 0 0 " + objTile.tilePosition[0] / objGridParams.gridSize * 100 + "%";
                 /**
                  * Create tile wrap DOM
                  */
-                let domTileWrap = document.createElement("div");
+                var domTileWrap = document.createElement("div");
                 domTileWrap.id = this.getUUID();
                 objTile.tileWrapID = domTileWrap.id;
                 domTile.appendChild(domTileWrap);
@@ -193,18 +141,18 @@ export default class CSTiles {
                  * Write tile wrap style
                  */
                 arrCss[""][domTileWrap.id] = {};
-                arrCss[""][domTileWrap.id]["padding"] = `${objTile.tileMargin * 0.5}px`;
-                arrCss[""][domTileWrap.id]["left"] = `0`;
-                arrCss[""][domTileWrap.id]["top"] = `0`;
-                arrCss[""][domTileWrap.id]["width"] = `100%`;
-                arrCss[""][domTileWrap.id]["height"] = `100%`;
-                arrCss[""][domTileWrap.id]["box-sizing"] = `border-box`;
-                arrCss[""][domTileWrap.id]["display"] = `block`;
-                arrCss[""][domTileWrap.id]["position"] = `absolute`;
+                arrCss[""][domTileWrap.id]["padding"] = objTile.tileMargin * 0.5 + "px";
+                arrCss[""][domTileWrap.id]["left"] = "0";
+                arrCss[""][domTileWrap.id]["top"] = "0";
+                arrCss[""][domTileWrap.id]["width"] = "100%";
+                arrCss[""][domTileWrap.id]["height"] = "100%";
+                arrCss[""][domTileWrap.id]["box-sizing"] = "border-box";
+                arrCss[""][domTileWrap.id]["display"] = "block";
+                arrCss[""][domTileWrap.id]["position"] = "absolute";
                 /**
                  * Create tile content DOM
                  */
-                let domTileContent = document.createElement("div");
+                var domTileContent = document.createElement("div");
                 domTileContent.id = this.getUUID();
                 objTile.tileContentID = domTileWrap.id;
                 domTileWrap.appendChild(domTileContent);
@@ -212,11 +160,11 @@ export default class CSTiles {
                  * Write tile content style
                  */
                 arrCss[""][domTileContent.id] = {};
-                arrCss[""][domTileContent.id]["z-index"] = `1`;
-                arrCss[""][domTileContent.id]["width"] = `100%`;
-                arrCss[""][domTileContent.id]["height"] = `100%`;
-                arrCss[""][domTileContent.id]["box-sizing"] = `border-box`;
-                arrCss[""][domTileContent.id]["overflow"] = `hidden`;
+                arrCss[""][domTileContent.id]["z-index"] = "1";
+                arrCss[""][domTileContent.id]["width"] = "100%";
+                arrCss[""][domTileContent.id]["height"] = "100%";
+                arrCss[""][domTileContent.id]["box-sizing"] = "border-box";
+                arrCss[""][domTileContent.id]["overflow"] = "hidden";
                 /**
                  * Add tile content
                  */
@@ -232,35 +180,35 @@ export default class CSTiles {
              * Write fix style
              */
             arrCss[""][domFix.id] = {};
-            arrCss[""][domFix.id]["position"] = `relative`;
-            arrCss[""][domFix.id]["width"] = `0`;
-            arrCss[""][domFix.id]["height"] = `0`;
-            arrCss[""][domFix.id]["padding"] = `${(grid.length - 1) / objGridParams.gridSize[0] * 100}% 0 0 0;`;
-            arrCss[""][domFix.id]["z-index"] = `0`;
+            arrCss[""][domFix.id]["position"] = "relative";
+            arrCss[""][domFix.id]["width"] = "0";
+            arrCss[""][domFix.id]["height"] = "0";
+            arrCss[""][domFix.id]["padding"] = (grid.length - 1) / objGridParams.gridSize[0] * 100 + "% 0 0 0;";
+            arrCss[""][domFix.id]["z-index"] = "0";
             /**
              * Write adaptive styles
              */
-            for (let strMediaName in objGridParams.adaptiveMedia) {
-                let strMediaRange = objGridParams.adaptiveMedia[strMediaName];
-                let grid = [];
+            for (var strMediaName in objGridParams.adaptiveMedia) {
+                var strMediaRange = objGridParams.adaptiveMedia[strMediaName];
+                var grid_1 = [];
                 arrCss[strMediaRange] = {};
-                for (let objTile of arrTiles) {
+                for (var _b = 0, arrTiles_2 = arrTiles; _b < arrTiles_2.length; _b++) {
+                    var objTile = arrTiles_2[_b];
                     arrCss[strMediaRange][objTile.tileID] = {};
-                    arrCss[strMediaRange][objTile.tileID]["padding"] = `${objTile.tileAdaptiveSize[strMediaName][0] / objGridParams.gridAdaptiveSize[strMediaName] * 50}% ${objTile.tileAdaptiveSize[strMediaName][1] / objGridParams.gridAdaptiveSize[strMediaName] * 50}%`;
-                    arrCss[strMediaRange][objTile.tileID]["margin"] = `${objTile.tileAdaptivePosition[strMediaName][1] / objGridParams.gridAdaptiveSize[strMediaName] * 100}% 0 0 ${objTile.tileAdaptivePosition[strMediaName][0] / objGridParams.gridAdaptiveSize[strMediaName] * 100}%`;
+                    arrCss[strMediaRange][objTile.tileID]["padding"] = objTile.tileAdaptiveSize[strMediaName][0] / objGridParams.gridAdaptiveSize[strMediaName] * 50 + "% " + objTile.tileAdaptiveSize[strMediaName][1] / objGridParams.gridAdaptiveSize[strMediaName] * 50 + "%";
+                    arrCss[strMediaRange][objTile.tileID]["margin"] = objTile.tileAdaptivePosition[strMediaName][1] / objGridParams.gridAdaptiveSize[strMediaName] * 100 + "% 0 0 " + objTile.tileAdaptivePosition[strMediaName][0] / objGridParams.gridAdaptiveSize[strMediaName] * 100 + "%";
                     arrCss[strMediaRange][objTile.tileWrapID] = {};
-                    arrCss[strMediaRange][objTile.tileWrapID]["padding"] = `${objTile.tileAdaptiveMargin[strMediaName] * 0.5}px`;
+                    arrCss[strMediaRange][objTile.tileWrapID]["padding"] = objTile.tileAdaptiveMargin[strMediaName] * 0.5 + "px";
                     arrCss[strMediaRange][objTile.tileContentID] = {};
-                    arrCss[strMediaRange][objTile.tileContentID]["padding"] = `${objTile.tileAdaptivePadding[strMediaName]}px`;
+                    arrCss[strMediaRange][objTile.tileContentID]["padding"] = objTile.tileAdaptivePadding[strMediaName] + "px";
                 }
                 arrCss[strMediaRange][domFix.id] = {};
-                arrCss[strMediaRange][domFix.id]["position"] = `relative`;
-                arrCss[strMediaRange][domFix.id]["width"] = `0`;
-                arrCss[strMediaRange][domFix.id]["height"] = `0`;
-                arrCss[strMediaRange][domFix.id]["padding"] = `${(adaptiveGrid[strMediaName].length - 1) / objGridParams.gridAdaptiveSize[strMediaName] * 100}% 0 0 0`;
-                arrCss[strMediaRange][domFix.id]["z-index"] = `0`;
+                arrCss[strMediaRange][domFix.id]["position"] = "relative";
+                arrCss[strMediaRange][domFix.id]["width"] = "0";
+                arrCss[strMediaRange][domFix.id]["height"] = "0";
+                arrCss[strMediaRange][domFix.id]["padding"] = (adaptiveGrid[strMediaName].length - 1) / objGridParams.gridAdaptiveSize[strMediaName] * 100 + "% 0 0 0";
+                arrCss[strMediaRange][domFix.id]["z-index"] = "0";
             }
-
             /**
              * Create style DOM
              * @type {HTMLStyleElement|HTMLElement}
@@ -274,107 +222,98 @@ export default class CSTiles {
             domParentNode.appendChild(domGrid);
         }
     }
-
     /**
      * Convert css object to css
      * @param arrCss
      * @returns {string}
      */
-    convertCss(arrCss:Object) {
-        for (let strMedia in arrCss) {
-            for (let strBlockID in arrCss[strMedia]) {
-                for (let strCssProperty in arrCss[strMedia][strBlockID]) {
+    CSTiles.prototype.convertCss = function (arrCss) {
+        for (var strMedia in arrCss) {
+            for (var strBlockID in arrCss[strMedia]) {
+                for (var strCssProperty in arrCss[strMedia][strBlockID]) {
                     arrCss[strMedia][strBlockID][strCssProperty] = this.optimizeCssProperty(strCssProperty, arrCss[strMedia][strBlockID][strCssProperty]);
                 }
                 arrCss[strMedia][strBlockID] = this.compiledCssProperties(arrCss[strMedia][strBlockID]);
             }
         }
-        let strCss = "";
-        for (let strMedia in arrCss) {
+        var strCss = "";
+        for (var strMedia in arrCss) {
             if (strMedia) {
-                let strMediaRange = strMedia.split("-");
-                strMediaRange[0] = strMediaRange[0] ? `and (min-width: ${strMediaRange[0]}px)` : ``;
-                strMediaRange[1] = strMediaRange[1] ? `and (max-width: ${strMediaRange[1]}px)` : ``;
-                strCss += `@media screen ${strMediaRange[0]} ${strMediaRange[1]} {`;
+                var strMediaRange = strMedia.split("-");
+                strMediaRange[0] = strMediaRange[0] ? "and (min-width: " + strMediaRange[0] + "px)" : "";
+                strMediaRange[1] = strMediaRange[1] ? "and (max-width: " + strMediaRange[1] + "px)" : "";
+                strCss += "@media screen " + strMediaRange[0] + " " + strMediaRange[1] + " {";
             }
             if (arrCss[strMedia]) {
-                for (let strBlockID in arrCss[strMedia]) {
-                    strCss += `#${strBlockID} {`;
-                    for (let strCssProperty in arrCss[strMedia][strBlockID]) {
-                        strCss += `${strCssProperty}: ${arrCss[strMedia][strBlockID][strCssProperty]};`;
+                for (var strBlockID in arrCss[strMedia]) {
+                    strCss += "#" + strBlockID + " {";
+                    for (var strCssProperty in arrCss[strMedia][strBlockID]) {
+                        strCss += strCssProperty + ": " + arrCss[strMedia][strBlockID][strCssProperty] + ";";
                     }
-                    strCss += `}`;
+                    strCss += "}";
                 }
             }
             if (strMedia) {
-                strCss += `}`;
+                strCss += "}";
             }
         }
         return strCss;
-    }
-
+    };
     /**
      * Optimize css property
      * @param strCssPropertyName
      * @param strCssPropertyValue
      * @returns {string|any}
      */
-    optimizeCssProperty(strCssPropertyName, strCssPropertyValue) {
+    CSTiles.prototype.optimizeCssProperty = function (strCssPropertyName, strCssPropertyValue) {
         strCssPropertyValue = (" " + strCssPropertyValue + " ")
             .replace(/\s0%/ig, " 0")
             .replace(/[\r\n\t]/ig, " ")
             .replace(/\s+/ig, " ")
             .replace(/^\s/ig, "")
             .replace(/\s$/ig, "");
-        if (
-            strCssPropertyName == "padding" ||
+        if (strCssPropertyName == "padding" ||
             strCssPropertyName == "margin") {
             strCssPropertyValue = strCssPropertyValue.split(" ");
             if (strCssPropertyValue.length == 2) {
                 if (strCssPropertyValue[0] == strCssPropertyValue[1]) {
                     strCssPropertyValue = [strCssPropertyValue[0]];
                 }
-            } else if (strCssPropertyValue.length == 3) {
-                if (
-                    strCssPropertyValue[0] == strCssPropertyValue[2] &&
-                    strCssPropertyValue[0] == strCssPropertyValue[2]
-                ) {
-                    strCssPropertyValue = [strCssPropertyValue[0]];
-                } else if (
-                    strCssPropertyValue[0] == strCssPropertyValue[2]
-                ) {
+            }
+            else if (strCssPropertyValue.length == 3) {
+                if (strCssPropertyValue[0] == strCssPropertyValue[2] &&
+                    strCssPropertyValue[0] == strCssPropertyValue[2]) {
                     strCssPropertyValue = [strCssPropertyValue[0]];
                 }
-            } else if (strCssPropertyValue.length == 4) {
-                if (
-                    strCssPropertyValue[0] == strCssPropertyValue[1] &&
-                    strCssPropertyValue[1] == strCssPropertyValue[2] &&
-                    strCssPropertyValue[2] == strCssPropertyValue[3]
-                ) {
+                else if (strCssPropertyValue[0] == strCssPropertyValue[2]) {
                     strCssPropertyValue = [strCssPropertyValue[0]];
-                } else if (
-                    strCssPropertyValue[0] == strCssPropertyValue[2] &&
-                    strCssPropertyValue[1] == strCssPropertyValue[3]
-                ) {
+                }
+            }
+            else if (strCssPropertyValue.length == 4) {
+                if (strCssPropertyValue[0] == strCssPropertyValue[1] &&
+                    strCssPropertyValue[1] == strCssPropertyValue[2] &&
+                    strCssPropertyValue[2] == strCssPropertyValue[3]) {
+                    strCssPropertyValue = [strCssPropertyValue[0]];
+                }
+                else if (strCssPropertyValue[0] == strCssPropertyValue[2] &&
+                    strCssPropertyValue[1] == strCssPropertyValue[3]) {
                     strCssPropertyValue = [strCssPropertyValue[0], strCssPropertyValue[1]];
-                } else if (
-                    strCssPropertyValue[1] == strCssPropertyValue[3]
-                ) {
+                }
+                else if (strCssPropertyValue[1] == strCssPropertyValue[3]) {
                     strCssPropertyValue = [strCssPropertyValue[0], strCssPropertyValue[1], strCssPropertyValue[2]];
                 }
             }
             strCssPropertyValue = strCssPropertyValue.join(" ");
         }
         return strCssPropertyValue;
-    }
-
+    };
     /**
      * Compiled complex css properties
      * @param objCssProperties
      * @returns {Object}
      */
-    compiledCssProperties(objCssProperties:Object):Object {
-        let objCompiledRules = {
+    CSTiles.prototype.compiledCssProperties = function (objCssProperties) {
+        var objCompiledRules = {
             "background": [
                 "background-image",
                 "background-position/background-size",
@@ -440,42 +379,41 @@ export default class CSTiles {
                 "outline-width"
             ]
         };
-        for (let strCompiledRule in objCompiledRules) {
+        for (var strCompiledRule in objCompiledRules) {
             if (!objCssProperties[strCompiledRule]) {
                 objCssProperties[strCompiledRule] = [];
-                for (let strRule in objCompiledRules[strCompiledRule]) {
-                    let arrRules = objCompiledRules[strCompiledRule][strRule].split("/");
-                    let arrCompiledRules = [];
-                    for (let _strRule of arrRules) {
+                for (var strRule in objCompiledRules[strCompiledRule]) {
+                    var arrRules = objCompiledRules[strCompiledRule][strRule].split("/");
+                    var arrCompiledRules = [];
+                    for (var _i = 0, arrRules_1 = arrRules; _i < arrRules_1.length; _i++) {
+                        var _strRule = arrRules_1[_i];
                         if (objCssProperties[_strRule]) {
                             arrCompiledRules.push(objCssProperties[_strRule]);
                             delete objCssProperties[_strRule];
                         }
                     }
-                    let strCompiledRules = arrCompiledRules.join("/");
+                    var strCompiledRules = arrCompiledRules.join("/");
                     if (strCompiledRules) {
                         objCssProperties[strCompiledRule].push(strCompiledRules);
                     }
                 }
                 if (objCssProperties[strCompiledRule].length > 0) {
                     objCssProperties[strCompiledRule] = objCssProperties[strCompiledRule].join(" ");
-                } else {
+                }
+                else {
                     delete objCssProperties[strCompiledRule];
                 }
             }
         }
         return objCssProperties;
-    }
-
+    };
     /**
      * Insert tile content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContent(domParentNode:HTMLElement,
-                  objContent:any,
-                  arrCss:Object) {
+    CSTiles.prototype.insertContent = function (domParentNode, objContent, arrCss) {
         switch (objContent.type) {
             case "none":
                 break;
@@ -503,114 +441,100 @@ export default class CSTiles {
             default:
                 console.log(objContent.type);
         }
-    }
-
+    };
     /**
      * Insert tile dom content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContentDom(domParentNode:HTMLElement,
-                     objContent:any,
-                     arrCss:Object) {
+    CSTiles.prototype.insertContentDom = function (domParentNode, objContent, arrCss) {
         if (objContent.query) {
-            let dom = document.querySelector(objContent.query);
+            var dom = document.querySelector(objContent.query);
             if (dom) {
                 domParentNode.appendChild(dom);
             }
         }
         if (objContent.poster) {
-            arrCss[""][domParentNode.id]["background-image"] = `url("${objContent.poster}")`;
-            arrCss[""][domParentNode.id]["background-position"] = `center center`;
-            arrCss[""][domParentNode.id]["background-repeat"] = `no-repeat`;
-            arrCss[""][domParentNode.id]["background-size"] = `cover`;
+            arrCss[""][domParentNode.id]["background-image"] = "url(\"" + objContent.poster + "\")";
+            arrCss[""][domParentNode.id]["background-position"] = "center center";
+            arrCss[""][domParentNode.id]["background-repeat"] = "no-repeat";
+            arrCss[""][domParentNode.id]["background-size"] = "cover";
         }
-    }
-
+    };
     /**
      * Insert tile html content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContentHtml(domParentNode:HTMLElement,
-                      objContent:any,
-                      arrCss:Object) {
+    CSTiles.prototype.insertContentHtml = function (domParentNode, objContent, arrCss) {
         if (objContent.html) {
             domParentNode.innerHTML = objContent.html;
         }
         if (objContent.poster) {
-            arrCss[""][domParentNode.id]["background-image"] = `url("${objContent.poster}")`;
-            arrCss[""][domParentNode.id]["background-position"] = `center center`;
-            arrCss[""][domParentNode.id]["background-repeat"] = `no-repeat`;
-            arrCss[""][domParentNode.id]["background-size"] = `cover`;
+            arrCss[""][domParentNode.id]["background-image"] = "url(\"" + objContent.poster + "\")";
+            arrCss[""][domParentNode.id]["background-position"] = "center center";
+            arrCss[""][domParentNode.id]["background-repeat"] = "no-repeat";
+            arrCss[""][domParentNode.id]["background-size"] = "cover";
         }
-    }
-
+    };
     /**
      * Insert tile tiles content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContentTiles(domParentNode:HTMLElement,
-                       objContent:any,
-                       arrCss:Object) {
-        if (
-            objContent.params &&
+    CSTiles.prototype.insertContentTiles = function (domParentNode, objContent, arrCss) {
+        if (objContent.params &&
             objContent.params.grid &&
-            objContent.params.tiles
-        ) {
+            objContent.params.tiles) {
             new CSTiles(domParentNode, objContent.params.grid, objContent.params.tiles);
         }
-    }
-
+    };
     /**
      * Insert tile iframe content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContentiFrame(domParentNode:HTMLElement,
-                        objContent:any,
-                        arrCss:Object) {
+    CSTiles.prototype.insertContentiFrame = function (domParentNode, objContent, arrCss) {
         if (objContent.src) {
-            let domTileiFrame = document.createElement("iframe");
+            var domTileiFrame = document.createElement("iframe");
             domTileiFrame.src = objContent.src;
             domTileiFrame.width = "100%";
             domTileiFrame.height = "100%";
             domTileiFrame.frameBorder = "no";
             domParentNode.appendChild(domTileiFrame);
         }
-    }
-
+    };
     /**
      * Insert tile audio content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContentAudio(domParentNode:HTMLElement,
-                       objContent:any,
-                       arrCss:Object) {
-        let domTileVideo = document.createElement("audio");
+    CSTiles.prototype.insertContentAudio = function (domParentNode, objContent, arrCss) {
+        var domTileVideo = document.createElement("audio");
         domTileVideo.id = this.getUUID();
         domTileVideo.controls = true;
         domTileVideo.preload = 'auto';
         if (objContent.src) {
-            for (let strVideo of objContent.src) {
-                let domTileSource = document.createElement("source");
+            for (var _i = 0, _a = objContent.src; _i < _a.length; _i++) {
+                var strVideo = _a[_i];
+                var domTileSource = document.createElement("source");
                 domTileSource.src = strVideo;
                 if (strVideo.indexOf(".ogv") != -1) {
                     domTileSource.type = 'audio/ogg; codecs=vorbis';
-                } else if (strVideo.indexOf(".mp3") != -1) {
+                }
+                else if (strVideo.indexOf(".mp3") != -1) {
                     domTileSource.type = 'audio/mpeg';
                 }
                 domTileVideo.appendChild(domTileSource);
             }
-            for (let strVideo of objContent.src) {
-                let domTileA = document.createElement("a");
+            for (var _b = 0, _c = objContent.src; _b < _c.length; _b++) {
+                var strVideo = _c[_b];
+                var domTileA = document.createElement("a");
                 domTileA.href = strVideo;
                 strVideo = strVideo.split(".");
                 domTileA.text = "Скачайте аудио ." + (strVideo[strVideo.length - 1]);
@@ -623,42 +547,43 @@ export default class CSTiles {
         arrCss[""][domTileVideo.id]["width"] = "100%";
         arrCss[""][domTileVideo.id]["height"] = "100%";
         if (objContent.poster) {
-            arrCss[""][domParentNode.id]["background-image"] = `url("${objContent.poster}")`;
-            arrCss[""][domParentNode.id]["background-position"] = `center center`;
-            arrCss[""][domParentNode.id]["background-repeat"] = `no-repeat`;
-            arrCss[""][domParentNode.id]["background-size"] = `cover`;
+            arrCss[""][domParentNode.id]["background-image"] = "url(\"" + objContent.poster + "\")";
+            arrCss[""][domParentNode.id]["background-position"] = "center center";
+            arrCss[""][domParentNode.id]["background-repeat"] = "no-repeat";
+            arrCss[""][domParentNode.id]["background-size"] = "cover";
         }
-    }
-
+    };
     /**
      * Insert tile video content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContentVideo(domParentNode:HTMLElement,
-                       objContent:any,
-                       arrCss:Object) {
-        let domTileVideo = document.createElement("video");
+    CSTiles.prototype.insertContentVideo = function (domParentNode, objContent, arrCss) {
+        var domTileVideo = document.createElement("video");
         domTileVideo.id = this.getUUID();
         domTileVideo.controls = true;
         domTileVideo.preload = 'auto';
         domTileVideo.poster = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTMyIDc5LjE1OTI4NCwgMjAxNi8wNC8xOS0xMzoxMzo0MCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUuNSAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5N0Q5REIwMzczMjUxMUU2OTkxQkQ2MDg4MENCNDAxMSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5N0Q5REIwNDczMjUxMUU2OTkxQkQ2MDg4MENCNDAxMSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk3RDlEQjAxNzMyNTExRTY5OTFCRDYwODgwQ0I0MDExIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjk3RDlEQjAyNzMyNTExRTY5OTFCRDYwODgwQ0I0MDExIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+JfZwGwAAABBJREFUeNpi+P//PwNAgAEACPwC/tuiTRYAAAAASUVORK5CYII=";
         if (objContent.src) {
-            for (let strVideo of objContent.src) {
-                let domTileSource = document.createElement("source");
+            for (var _i = 0, _a = objContent.src; _i < _a.length; _i++) {
+                var strVideo = _a[_i];
+                var domTileSource = document.createElement("source");
                 domTileSource.src = strVideo;
                 if (strVideo.indexOf(".ogv") != -1) {
                     domTileSource.type = 'video/ogg; codecs="theora, vorbis"';
-                } else if (strVideo.indexOf(".mp4") != -1) {
+                }
+                else if (strVideo.indexOf(".mp4") != -1) {
                     domTileSource.type = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
-                } else if (strVideo.indexOf(".webm") != -1) {
+                }
+                else if (strVideo.indexOf(".webm") != -1) {
                     domTileSource.type = 'video/webm; codecs="vp8, vorbis"';
                 }
                 domTileVideo.appendChild(domTileSource);
             }
-            for (let strVideo of objContent.src) {
-                let domTileA = document.createElement("a");
+            for (var _b = 0, _c = objContent.src; _b < _c.length; _b++) {
+                var strVideo = _c[_b];
+                var domTileA = document.createElement("a");
                 domTileA.href = strVideo;
                 strVideo = strVideo.split(".");
                 domTileA.text = "Скачайте видео ." + (strVideo[strVideo.length - 1]);
@@ -671,50 +596,45 @@ export default class CSTiles {
         arrCss[""][domTileVideo.id]["width"] = "100%";
         arrCss[""][domTileVideo.id]["height"] = "100%";
         if (objContent.poster) {
-            arrCss[""][domParentNode.id]["background-image"] = `url("${objContent.poster}")`;
-            arrCss[""][domParentNode.id]["background-position"] = `center center`;
-            arrCss[""][domParentNode.id]["background-repeat"] = `no-repeat`;
-            arrCss[""][domParentNode.id]["background-size"] = `cover`;
+            arrCss[""][domParentNode.id]["background-image"] = "url(\"" + objContent.poster + "\")";
+            arrCss[""][domParentNode.id]["background-position"] = "center center";
+            arrCss[""][domParentNode.id]["background-repeat"] = "no-repeat";
+            arrCss[""][domParentNode.id]["background-size"] = "cover";
         }
-    }
-
+    };
     /**
      * Insert tile image content
      * @param domParentNode
      * @param objContent
      * @param arrCss
      */
-    insertContentImage(domParentNode:HTMLElement,
-                       objContent:any,
-                       arrCss:Object) {
+    CSTiles.prototype.insertContentImage = function (domParentNode, objContent, arrCss) {
         if (objContent.src) {
             arrCss[""] = arrCss[""] || {};
             arrCss[""][domParentNode.id] = arrCss[""][domParentNode.id] || {};
-            arrCss[""][domParentNode.id]["background-image"] = `url("${objContent.src}")`;
-            arrCss[""][domParentNode.id]["background-position"] = `center center`;
-            arrCss[""][domParentNode.id]["background-repeat"] = `no-repeat`;
-            arrCss[""][domParentNode.id]["background-size"] = `cover`;
+            arrCss[""][domParentNode.id]["background-image"] = "url(\"" + objContent.src + "\")";
+            arrCss[""][domParentNode.id]["background-position"] = "center center";
+            arrCss[""][domParentNode.id]["background-repeat"] = "no-repeat";
+            arrCss[""][domParentNode.id]["background-size"] = "cover";
         }
-    }
-
+    };
     /**
      * Get unique ID
      * @returns {string}
      */
-    getUUID() {
-        let s = "";
+    CSTiles.prototype.getUUID = function () {
+        var s = "";
         do {
             s += Math.round(Math.random() * 1e6).toString(36);
         } while (s.length < 32);
-        return `x${s.substr(1, 7)}-${s.substr(8, 4)}-${s.substr(12, 4)}-${s.substr(16, 4)}-${s.substr(20, 12)}`;
-    }
-
+        return "x" + s.substr(1, 7) + "-" + s.substr(8, 4) + "-" + s.substr(12, 4) + "-" + s.substr(16, 4) + "-" + s.substr(20, 12);
+    };
     /**
      * Assign default grid params
      * @param objGridParams
      * @returns {Object}
      */
-    assignDefaultGridParams(objGridParams:GridParamsClass):GridParamsClass {
+    CSTiles.prototype.assignDefaultGridParams = function (objGridParams) {
         /**
          * Field empty grid parameters from default settings
          */
@@ -723,27 +643,21 @@ export default class CSTiles {
         /**
          * Field empty grid adaptive settings from base settings
          */
-        objGridParams = this.assignAdaptives(
-            objGridParams,
-            objGridParams.adaptiveMedia,
-            ["gridSize", "tileMargin", "tilePadding"],
-            ["gridAdaptiveSize", "tileAdaptiveMargin", "tileAdaptivePadding"]
-        );
+        objGridParams = this.assignAdaptives(objGridParams, objGridParams.adaptiveMedia, ["gridSize", "tileMargin", "tilePadding"], ["gridAdaptiveSize", "tileAdaptiveMargin", "tileAdaptivePadding"]);
         return objGridParams;
-    }
-
+    };
     /**
      * Assign default tile params
      * @param objGridParams
      * @param arrTiles
      * @returns any
      */
-    assignDefaultTileParams(objGridParams:GridParamsClass, arrTiles:Array<TileParamsClass>):any {
+    CSTiles.prototype.assignDefaultTileParams = function (objGridParams, arrTiles) {
         /**
          * The enumeration of all tiles
          */
-        let grid = [];
-        for (let objTileID in arrTiles) {
+        var grid = [];
+        for (var objTileID in arrTiles) {
             /**
              * Get params from default grid
              */
@@ -763,43 +677,32 @@ export default class CSTiles {
             /**
              * Field empty tile adaptive settings from base settings
              */
-            arrTiles[objTileID] = this.assignAdaptives(
-                arrTiles[objTileID],
-                objGridParams.adaptiveMedia,
-                ["tileSize", "tilePosition", "tileMargin", "tilePadding"],
-                ["tileAdaptiveSize", "tileAdaptivePosition", "tileAdaptiveMargin", "tileAdaptivePadding"]
-            );
+            arrTiles[objTileID] = this.assignAdaptives(arrTiles[objTileID], objGridParams.adaptiveMedia, ["tileSize", "tilePosition", "tileMargin", "tilePadding"], ["tileAdaptiveSize", "tileAdaptivePosition", "tileAdaptiveMargin", "tileAdaptivePadding"]);
             /**
              * Set grid position
              */
-            let r = this.findPosition(
-                grid,
-                objGridParams.gridSize,
-                arrTiles[objTileID].tileSize,
-                arrTiles[objTileID].tilePosition
-            );
+            var r = this.findPosition(grid, objGridParams.gridSize, arrTiles[objTileID].tileSize, arrTiles[objTileID].tilePosition);
             grid = r.grid;
             arrTiles[objTileID].tilePosition = [r.x, r.y];
         }
         /**
          * Set adaptive position
          */
-        let adaptiveGrid = {};
-        for (let strMediaName in objGridParams.adaptiveMedia) {
+        var adaptiveGrid = {};
+        for (var strMediaName in objGridParams.adaptiveMedia) {
             adaptiveGrid[strMediaName] = [];
-            for (let objTileID in arrTiles) {
-                let r = this.findPosition(adaptiveGrid[strMediaName], objGridParams.gridAdaptiveSize[strMediaName], arrTiles[objTileID].tileAdaptiveSize[strMediaName], arrTiles[objTileID].tileAdaptivePosition[strMediaName]);
+            for (var objTileID in arrTiles) {
+                var r = this.findPosition(adaptiveGrid[strMediaName], objGridParams.gridAdaptiveSize[strMediaName], arrTiles[objTileID].tileAdaptiveSize[strMediaName], arrTiles[objTileID].tileAdaptivePosition[strMediaName]);
                 adaptiveGrid[strMediaName] = r.grid;
                 arrTiles[objTileID].tileAdaptivePosition[strMediaName] = [r.x, r.y];
             }
         }
         return {
             _arrTiles: arrTiles,
-            grid,
-            adaptiveGrid
+            grid: grid,
+            adaptiveGrid: adaptiveGrid
         };
-    }
-
+    };
     /**
      * Find free position for tile
      * @param grid
@@ -808,15 +711,10 @@ export default class CSTiles {
      * @param tilePosition
      * @returns {any}
      */
-    findPosition(grid:Array<Array<boolean>>,
-                 gridSize:number,
-                 tileSize:Array<number>,
-                 tilePosition:Array<number>):any {
-        if (
-            tilePosition &&
-            tilePosition.length == 2
-        ) {
-            let x, y, z, i, j;
+    CSTiles.prototype.findPosition = function (grid, gridSize, tileSize, tilePosition) {
+        if (tilePosition &&
+            tilePosition.length == 2) {
+            var x = void 0, y = void 0, z = void 0, i = void 0, j = void 0;
             x = tilePosition[0];
             y = tilePosition[1];
             do {
@@ -832,16 +730,17 @@ export default class CSTiles {
                 y: y,
                 grid: grid
             };
-        } else {
-            let x, y, z, i, j;
-            let isFunded = false;
+        }
+        else {
+            var x = void 0, y = void 0, z = void 0, i = void 0, j = void 0;
+            var isFunded = false;
             z = 0;
             do {
                 isFunded = false;
                 if ((grid.length - tileSize[1]) > 0) {
                     for (y = 0; y <= grid.length - tileSize[1]; y++) {
                         for (x = 0; x <= grid[y].length - tileSize[0]; x++) {
-                            let ifGap = true;
+                            var ifGap = true;
                             for (i = y; i < y + tileSize[1]; i++) {
                                 for (j = x; j < x + tileSize[0]; j++) {
                                     if (grid[i][j]) {
@@ -879,26 +778,25 @@ export default class CSTiles {
                     y: y,
                     grid: grid
                 };
-            } else {
+            }
+            else {
                 return false;
             }
         }
-    }
-
+    };
     /**
      * Add another line to grid
      * @param grid
      * @param gridSize
      * @returns {Array<Array<boolean>>}
      */
-    addLineToGrid(grid:Array<Array<boolean>>, gridSize:number):Array<Array<boolean>> {
+    CSTiles.prototype.addLineToGrid = function (grid, gridSize) {
         grid.push([]);
-        for (let i = 0; i < gridSize; i++) {
+        for (var i = 0; i < gridSize; i++) {
             grid[grid.length - 1][i] = false;
         }
         return grid;
-    }
-
+    };
     /**
      * Assign adaptive settings
      * @param objObject
@@ -907,16 +805,12 @@ export default class CSTiles {
      * @param strPropertyTo
      * @returns {Object}
      */
-    assignAdaptives(objObject:Object,
-                    arrAdaptiveMedia:Object,
-                    strPropertyFrom:Array<string>,
-                    strPropertyTo:Array<string>):any {
-        for (let i in strPropertyFrom) {
+    CSTiles.prototype.assignAdaptives = function (objObject, arrAdaptiveMedia, strPropertyFrom, strPropertyTo) {
+        for (var i in strPropertyFrom) {
             objObject = this.assignAdaptive(objObject, arrAdaptiveMedia, strPropertyFrom[i], strPropertyTo[i]);
         }
         return objObject;
-    }
-
+    };
     /**
      * Assign adaptive settings
      * @param objObject
@@ -925,22 +819,16 @@ export default class CSTiles {
      * @param strPropertyTo
      * @returns {Object}
      */
-    assignAdaptive(objObject:Object,
-                   arrAdaptiveMedia:Object,
-                   strPropertyFrom:string,
-                   strPropertyTo:string):any {
+    CSTiles.prototype.assignAdaptive = function (objObject, arrAdaptiveMedia, strPropertyFrom, strPropertyTo) {
         objObject = objObject || {};
-        for (let i in arrAdaptiveMedia) {
+        for (var i in arrAdaptiveMedia) {
             objObject[strPropertyTo] = objObject[strPropertyTo] || {};
-            if (
-                this.isEmpty(objObject[strPropertyTo][i]) && !this.isEmpty(objObject[strPropertyFrom])
-            ) {
+            if (this.isEmpty(objObject[strPropertyTo][i]) && !this.isEmpty(objObject[strPropertyFrom])) {
                 objObject[strPropertyTo][i] = objObject[strPropertyFrom];
             }
         }
         return objObject;
-    }
-
+    };
     /**
      * Assign empty parameters with default
      * @param objFirstObject
@@ -948,103 +836,85 @@ export default class CSTiles {
      * @param claObjectClass
      * @returns {Object}
      */
-    assignEmpty(objFirstObject:Object,
-                objSecondObject:Object,
-                claObjectClass:any):any {
+    CSTiles.prototype.assignEmpty = function (objFirstObject, objSecondObject, claObjectClass) {
         objFirstObject = objFirstObject || {};
-
-        let objInterface = this.getInterface(new claObjectClass());
-        for (let key in objInterface) {
-            if (
-                this.isEmpty(objFirstObject[key]) && !this.isEmpty(objSecondObject[key]) &&
-                typeof objSecondObject[key] == objInterface[key]
-            ) {
+        var objInterface = this.getInterface(new claObjectClass());
+        for (var key in objInterface) {
+            if (this.isEmpty(objFirstObject[key]) && !this.isEmpty(objSecondObject[key]) &&
+                typeof objSecondObject[key] == objInterface[key]) {
                 objFirstObject[key] = objSecondObject[key];
             }
         }
         return objFirstObject;
-    }
-
+    };
     /**
      * Get class interface
      * @param objObject
      * @returns {{}}
      */
-    getInterface(objObject:Object) {
-        let objInterface = {};
-        for (let i in objObject) {
-            objInterface[i] = typeof(objObject[i]);
+    CSTiles.prototype.getInterface = function (objObject) {
+        var objInterface = {};
+        for (var i in objObject) {
+            objInterface[i] = typeof (objObject[i]);
         }
         return objInterface;
-    }
-
+    };
     /**
      * Check if variable is empty
      * @param variable
      * @returns {boolean}
      */
-    isEmpty(variable:any) {
-        if (
-            Array.isArray(variable)
-        ) {
+    CSTiles.prototype.isEmpty = function (variable) {
+        if (Array.isArray(variable)) {
             return variable.length == 0;
-        } else if (
-            typeof variable == "object"
-        ) {
+        }
+        else if (typeof variable == "object") {
             return Object.keys(variable).length == 0;
-        } else if (
-            typeof variable == "string"
-        ) {
+        }
+        else if (typeof variable == "string") {
             return false;
-        } else {
+        }
+        else {
             return typeof variable == "undefined";
         }
-    }
-
+    };
     /**
      * Get object dump
      * @param objObject
      * @returns {string}
      */
-    getObjectToDump(objObject:Object):string {
-        let strDump = "";
-        for (let i in objObject) {
+    CSTiles.prototype.getObjectToDump = function (objObject) {
+        var strDump = "";
+        for (var i in objObject) {
             strDump += "\t" + i + ":" + objObject[i] + "\r\n";
         }
         return strDump;
-    }
-
+    };
     /**
      * Check is instance of
      * @param objFirstObject
      * @param objSecondObject
      * @returns {boolean}
      */
-    isInstanceOf(objFirstObject:Object,
-                 objSecondObject:Object):boolean {
-        if (
-            !(
-                typeof objFirstObject == "object" &&
-                objFirstObject &&
-                typeof objSecondObject == "object" &&
-                objSecondObject
-            )
-        ) {
+    CSTiles.prototype.isInstanceOf = function (objFirstObject, objSecondObject) {
+        if (!(typeof objFirstObject == "object" &&
+            objFirstObject &&
+            typeof objSecondObject == "object" &&
+            objSecondObject)) {
             return false;
         }
-        for (let i in objFirstObject) {
+        for (var i in objFirstObject) {
             if (!objSecondObject.hasOwnProperty(i)) {
                 return false;
             }
         }
-        for (let i in objSecondObject) {
+        for (var i in objSecondObject) {
             if (!objFirstObject.hasOwnProperty(i)) {
                 return false;
             }
         }
         return true;
-    }
-
+    };
     /**
      * Check input parameters for correctness
      * @param domParentNode
@@ -1052,76 +922,50 @@ export default class CSTiles {
      * @param arrTiles
      * @returns {boolean}
      */
-    checkInnerParamsForErrors(domParentNode?:HTMLElement,
-                              objGridParams?:GridParamsClass,
-                              arrTiles?:Array<TileParamsClass>) {
-        let isError = false;
-        if (
-            !isError && !(
-                typeof domParentNode == "object" &&
-                domParentNode instanceof HTMLElement &&
-                typeof domParentNode.parentNode == "object" &&
-                domParentNode.parentNode instanceof HTMLElement
-            )
-        ) {
+    CSTiles.prototype.checkInnerParamsForErrors = function (domParentNode, objGridParams, arrTiles) {
+        var isError = false;
+        if (!isError && !(typeof domParentNode == "object" &&
+            domParentNode instanceof HTMLElement &&
+            typeof domParentNode.parentNode == "object" &&
+            domParentNode.parentNode instanceof HTMLElement)) {
             console.warn("The first parameter should be a DOM element.");
             isError = true;
         }
-        if (
-            !isError && !(
-                typeof domParentNode.parentNode == "object" &&
-                domParentNode.parentNode instanceof HTMLElement
-            )
-        ) {
+        if (!isError && !(typeof domParentNode.parentNode == "object" &&
+            domParentNode.parentNode instanceof HTMLElement)) {
             console.warn("The first parameter must be an existing DOM element.");
             isError = true;
         }
-        if (
-            !isError && !(
-                typeof objGridParams == "object"
-            )
-        ) {
+        if (!isError && !(typeof objGridParams == "object")) {
             console.warn("The second parameter must be an object.");
             isError = true;
         }
-        if (
-            !isError && !(
-                this.isInstanceOf(objGridParams, new GridParamsClass())
-            )
-        ) {
+        if (!isError && !(this.isInstanceOf(objGridParams, new GridParamsClass()))) {
             console.warn("The object with the parameters of the tile needs to implement the interface:" + "\r\n" + this.getObjectToDump(this.getInterface(new GridParamsClass())));
             isError = true;
         }
-        if (
-            !isError && !(
-                Array.isArray(arrTiles)
-            )
-        ) {
+        if (!isError && !(Array.isArray(arrTiles))) {
             console.warn("The third parameter must be an array with the tiles.");
             isError = true;
         }
-        if (
-            !isError && !(
-                arrTiles.length > 0
-            )
-        ) {
+        if (!isError && !(arrTiles.length > 0)) {
             console.warn("An array of tiles must contain at least one element.");
             isError = true;
         }
-        for (let objTileID in arrTiles) {
-            if (
-                !isError && !(
-                    this.isInstanceOf(arrTiles[objTileID], new TileParamsClass())
-                )
-            ) {
+        for (var objTileID in arrTiles) {
+            if (!isError && !(this.isInstanceOf(arrTiles[objTileID], new TileParamsClass()))) {
                 console.warn("Tile number " + objTileID + " must implement the interface:" + "\r\n" + this.getObjectToDump(this.getInterface(new TileParamsClass())));
                 isError = true;
             }
         }
         return isError;
-    }
-}
+    };
+    return CSTiles;
+}());
+exports.__esModule = true;
+exports["default"] = CSTiles;
 /**
  * Export CSTiles to global
  */
 window["CSTiles"] = CSTiles;
+//# sourceMappingURL=CSTiles.js.map
