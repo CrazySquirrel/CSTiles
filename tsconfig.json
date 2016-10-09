@@ -5,7 +5,6 @@
     "inlineSourceMap": true
   },
   "files": [
-    "./typings/index.d.ts",
-    "./src/ts/CSTiles.ts"
+    "./src/ts/Modules/CSTiles.ts"
   ]
 }

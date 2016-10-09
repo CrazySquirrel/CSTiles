@@ -12,8 +12,6 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
 const path = require('path');
 
 const webpack = require('webpack');
@@ -24,17 +22,36 @@ const crypto = require('crypto');
 
 const compress = require('compression');
 
+const packagenpm = require('./package.json');
+
+let objBuildList = {};
+
+/**
+ * Used files
+ */
+objBuildList = Object.assign(
+    objBuildList,
+    {
+        "./dist/js/CSTiles": "./src/ts/Modules/CSTiles.ts"
+    }
+);
+/**
+ * Plugins list
+ */
 let arrPlugins = [
     new WebpackNotifierPlugin(),
     new StringReplacePlugin()
 ];
+/**
+ * Add BrowserSync for development mode
+ */
 if (NODE_ENV == "development" || NODE_ENV == "production") {
     arrPlugins.push(
         new BrowserSyncPlugin({
             host: "localhost",
             port: 8080,
             server: {
-                baseDir: ['./dist/'],
+                baseDir: ['./'],
                 middleware: function (req, res, next) {
                     var gzip = compress();
                     gzip(req, res, next);
@@ -43,7 +60,10 @@ if (NODE_ENV == "development" || NODE_ENV == "production") {
         })
     );
 }
-if (NODE_ENV == "production") {
+/**
+ * Add uglifyer for production mode
+ */
+if (NODE_ENV == "production" || NODE_ENV == "testing") {
     arrPlugins.push(
         new webpack.optimize.UglifyJsPlugin({
             minimize: true,
@@ -66,6 +86,9 @@ if (NODE_ENV == "production") {
         })
     );
 }
+/**
+ * Add additional plugins
+ */
 arrPlugins.push(
     new webpack.DefinePlugin({
         'process.env': {
@@ -73,19 +96,17 @@ arrPlugins.push(
         }
     })
 );
+
 arrPlugins.push(
     new CleanWebpackPlugin([
-        "./dist/js",
-        "./src/js"
+        "./dist/js"
     ])
 );
 
 module.exports = {
-    entry: {
-        "CSTiles": "./src/ts/CSTiles.ts"
-    },
+    entry: objBuildList,
     output: {
-        filename: "./dist/js/[name].js"
+        filename: "[name].js"
     },
     devtool: (NODE_ENV == "development" ? 'inline-source-map' : (NODE_ENV == "testing" ? 'inline-source-map' : '')),
     plugins: arrPlugins,
@@ -100,13 +121,18 @@ module.exports = {
             {
                 test: /\.ts(x?)$/,
                 loaders: [
-                    "es3ify",
                     StringReplacePlugin.replace({
                         replacements: [
                             {
-                                pattern: /#HASH#/gi,
+                                pattern: /#PACKAGE_NAME#/gi,
                                 replacement: function (string, pattern1) {
-                                    return crypto.createHash('md5').update((new Date()).getTime().toString()).digest('hex');
+                                    return packagenpm.name;
+                                }
+                            },
+                            {
+                                pattern: /#PACKAGE_VERSION#/gi,
+                                replacement: function (string, pattern1) {
+                                    return packagenpm.version;
                                 }
                             }
                         ]
@@ -115,6 +141,10 @@ module.exports = {
                     'ts-loader'
                 ],
                 exclude: /node_modules/
+            },
+            {
+                test: /\.png/,
+                loader: path.join(__dirname, "./src/loaders/base64-loader.js?type=image/png")
             }
         ]
     }
