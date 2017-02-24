@@ -1,13 +1,8 @@
 {
   "resolution": "main",
   "tree": {
-    "src": "https://raw.githubusercontent.com/types/env-node/9b4d855e359806908a607fa53ad04dc5a8598e45/6/typings.json",
-    "raw": "registry:env/node#6.0.0+20160825160117",
-    "version": "6",
-    "files": [
-      "node.d.ts"
-    ],
-    "name": "node",
-    "type": "typings"
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/88f38f5b582007f8a4e71cb9023f8a2daa98fbb7/node/node.d.ts",
+    "raw": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#88f38f5b582007f8a4e71cb9023f8a2daa98fbb7",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/88f38f5b582007f8a4e71cb9023f8a2daa98fbb7/node/node.d.ts"
   }
 }

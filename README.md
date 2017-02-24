@@ -1,7 +1,17 @@
+
 # CSTiles
+
+[![Code Climate](https://codeclimate.com/github/CrazySquirrel/CSTiles/badges/gpa.svg)](https://codeclimate.com/github/CrazySquirrel/CSTiles)
+[![Test Coverage](https://codeclimate.com/github/CrazySquirrel/CSTiles/badges/coverage.svg)](https://codeclimate.com/github/CrazySquirrel/CSTiles/coverage)
+[![Issue Count](https://codeclimate.com/github/CrazySquirrel/CSTiles/badges/issue_count.svg)](https://codeclimate.com/github/CrazySquirrel/CSTiles)
+[![Donate](https://img.shields.io/badge/donate-%E2%99%A5-red.svg)](http://crazysquirrel.ru/support/)
+
 The JavaScript tiles component.
+
 ## Build
+
 The repository contains pre-compiled files, but if you want to add your files and compile, then run the following commands in the repository folder.
+
 * npm install
 * npm run production
 
@@ -12,6 +22,7 @@ or
 The build required NodeJs version 6 or higher.
 
 ## Usage
+
 ```
 //If you use TypeScript in your project.
 import CSTiles from CSTiles.ts
@@ -27,7 +38,9 @@ let CSTiles = window["CSTiles"];
 //Then call just CSTiles class with parameters.
 new CSTiles(<domParentNode>,<objGridParams>,<arrTiles>);
 ```
+
 ### Parameters
+
 ```
 - domParentNode
     The parent dom element in which the tiles will be inserted.
@@ -213,10 +226,6 @@ new CSTiles(<domParentNode>,<objGridParams>,<arrTiles>);
             "small": 1
 ```
 
-## Help us
-    
-[![Help us](http://crazysquirrel.ru/bitrix/templates/crazysquirrel/images/yandex.money.png)](https://money.yandex.ru/quickpay/shop-widget?account=41001951616035&quickpay=shop&payment-type-choice=on&mobile-payment-type-choice=on&writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0+%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0+CrazySquirrel&default-sum=50&button-text=03&successURL=http%3A%2F%2Fcrazysquirrel.ru%2Fsupport%2F%3Faction%3Dsuccess "Help us")
-    
 ## Example
 
 ```javascript
@@ -402,7 +411,3 @@ new CSTiles(
         ]
 );
 ```
-
-## Sponsors
-    
-[![BrowserStack](http://crazysquirrel.ru/bitrix/templates/crazysquirrel/images/browserstack.png)](https://www.browserstack.com/)

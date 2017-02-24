@@ -1,0 +1,20 @@
+language: node_js
+node_js: '6'
+install: npm install
+script:
+  - npm run karma
+  - npm run production
+after_success:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < doc/coverage/report-lcov/lcov.info
+addons:
+  code_climate:
+    repo_token: b136cfee61ce2d3fec969d230ced59f048664d302da7a626d5dbf05a35828cfa
+deploy:
+  provider: npm
+  email: 'info@crazysquirrel.ru'
+  api_key: '443206b0-d7ea-47eb-89ca-9ff2e6ec246b'
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master

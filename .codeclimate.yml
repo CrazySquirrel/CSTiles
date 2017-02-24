@@ -1,0 +1,24 @@
+engines:
+  duplication:
+      enabled: true
+      config:
+        languages:
+        - javascript:
+  eslint:
+      enabled: true
+  fixme:
+      enabled: true
+  nodesecurity:
+      enabled: true
+  markdownlint:
+      enabled: true
+ratings:
+  paths:
+  - src/**
+exclude_paths:
+  - typings
+  - vendors
+  - spec
+  - dist
+  - "**.js"
+  - "**.json"
